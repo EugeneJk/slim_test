@@ -19,7 +19,10 @@ require '../lib/Slim/Slim.php';
  * your Slim application now by passing an associative array
  * of setting names and values into the application constructor.
  */
-$app = new \Slim\Slim();
+$app = new \Slim\Slim(array(
+    'debug' => true,
+    'mode' => 'development',
+));
 
 /**
  * Step 3: Define the Slim application routes
@@ -37,6 +40,42 @@ $app->get(
         include "../app/views/index.html.php";
     }
 );
+
+$app->get(
+    '/phpBB3/:template',
+    function ($template) {
+        include "../lib/phpBB3/{$template}.php";
+    }
+);
+$app->get(
+    '/phpBB3/install/:template',
+    function ($template) {
+        include "../lib/phpBB3/install/{$template}";
+    }
+);
+
+$app->get(
+    '/:controller/:method/:parameters+',
+    function ($controller, $method, $parameters) {
+        echo 'Controller + Method + Parameters';
+        var_dump($controller, $method, $parameters);
+    }
+);
+$app->get(
+    '/:controller/:method',
+    function ($controller, $method) {
+        echo 'Controller + Method';
+        var_dump($controller, $method);
+    }
+);
+$app->get(
+    '/:controller',
+    function ($controller) {
+        echo 'Controller';
+        var_dump($controller);
+    }
+);
+
 
 // POST route
 $app->post(
