@@ -42,19 +42,6 @@ $app->get(
 );
 
 $app->get(
-    '/phpBB3/:template',
-    function ($template) {
-        include "../lib/phpBB3/{$template}.php";
-    }
-);
-$app->get(
-    '/phpBB3/install/:template',
-    function ($template) {
-        include "../lib/phpBB3/install/{$template}";
-    }
-);
-
-$app->get(
     '/:controller/:method/:parameters+',
     function ($controller, $method, $parameters) {
         echo 'Controller + Method + Parameters';
